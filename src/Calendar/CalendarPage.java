@@ -85,12 +85,10 @@ public class CalendarPage
                     }
                     if(!rows[row][col].isEmpty())
                     {
-                        updateTable(-1);
                         new CardPage(username, Integer.valueOf(rows[row][col]),selectedDate,selectedTime);
                     }
                     else
                     {
-                        updateTable(-1);
                         new CardPage(username, -1,selectedDate,selectedTime);
                     }
                     frame.setEnabled(false);

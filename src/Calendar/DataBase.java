@@ -7,8 +7,8 @@ public class DataBase {
    private static int meetId;
 
     public static void generateTestUsers() {
-        createUser("a","a");
-        createUser("b","b");
+        createUser("admin","admin");
+        createUser("user","1111");
     }
 
     public static void createMeeting(String username,Date date, String startTime,String endTime,String room,String guest,int existingId)

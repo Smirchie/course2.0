@@ -77,7 +77,6 @@ public class CardPage {
                         public void actionPerformed(ActionEvent e) {
                                 if(meetId!=-1)
                                 {
-                                        System.out.println(DataBase.userHM.get(username).meetingHM.get(meetId).toString());
                                         DataBase.deleteMeeting(username,meetId);
                                 }
                                 CalendarPage.updateTable(0);
@@ -95,24 +94,22 @@ public class CardPage {
 
                                 String startTString = startTime.getSelectedItem().toString();
                                 String[] startTimeParts = startTString.split(":");
-                                int startHour = Integer.parseInt(startTimeParts[0]);
                                 int startMinute = Integer.parseInt(startTimeParts[1]);
-                                System.out.println(startHour);
-                                System.out.println(startMinute);
 
                                 String endTString = endTime.getSelectedItem().toString();
                                 String[] endTimeParts = endTString.split(":");
-                                int endHour = Integer.parseInt(endTimeParts[0]);
                                 int endMinute = Integer.parseInt(endTimeParts[1]);
-                                System.out.println(endHour);
-                                System.out.println(endMinute);
-
-                                if (startMinute >= endMinute){
-                                        showWarning("Wrong Time", "The completion time is longer than the start time");
+                                if(cal.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY||cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY)
+                                {
+                                        showWarning("Error","Can't add meeting on Saturday or Sunday");
+                                }
+                                else if (startMinute >= endMinute){
+                                        showWarning("Error", "Meeting must be at least an hour long.");
                                 }
                                 else {
                                 DataBase.createMeeting(username,cal.getTime(),startTime.getSelectedItem().toString(),endTime.getSelectedItem().toString(),room.getText(),guests.getText(),meetId);
                                 CalendarPage.updateTable(0);
+                                CalendarPage.updateTable(-1);
                                 frame.dispose();
                                 }
                         }
@@ -122,6 +119,7 @@ public class CardPage {
                         @Override
                         public void windowClosing(WindowEvent e) {
                                 CalendarPage.updateTable(0);
+                                CalendarPage.updateTable(-1);
                                 frame.dispose();
                         }
                 });
