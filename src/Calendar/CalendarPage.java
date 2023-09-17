@@ -28,8 +28,8 @@ public class CalendarPage
     private static final Calendar cal = Calendar.getInstance();
     CalendarPage(JFrame parsedFrame, String parsedUsername)
     {
-
-        JLabel titleLabel = new JLabel("Calendar");
+        username = parsedUsername;
+        JLabel titleLabel = new JLabel(username);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setAlignmentX(Component.TOP_ALIGNMENT);
 
@@ -38,10 +38,10 @@ public class CalendarPage
         JButton prev_week = new JButton();
         JButton next_week = new JButton();
         JPanel panel = new JPanel();
-        username = parsedUsername;
-        prev_week.setText("<-");
-        next_week.setText("->");
+        prev_week.setText("<");
+        next_week.setText(">");
         JButton logout = new JButton();
+        logout.setFont(new Font("Arial",0,13));
         logout.setText("Log Out");
         logout.addActionListener(new ActionListener() {
             @Override
@@ -95,9 +95,12 @@ public class CalendarPage
                 }
             }
         });
+        JPanel titlePanel = new JPanel();
+        titlePanel.setLayout(new BoxLayout(titlePanel,BoxLayout.LINE_AXIS));
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(logout);
-        panel.add(titleLabel);
+        titlePanel.add(titleLabel);
+        titlePanel.add(logout);
+        panel.add(titlePanel);
 
         updateTable(0);
         panel.add(table);
